@@ -8,49 +8,79 @@
 
 import UIKit
 
-protocol LoginViewControllerDelegate {
+// Define the function of the loginVeiwControllerDelegate
+protocol LoginViewControllerDelegate
+{
+    // if crediatials are successfully validated 
+    // the  call didloginsuccesfully 
+    // Screen will be dismissed
     func didLoginSuccessfully()
 }
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate
+{
     
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var submitButton: UIButton!
     
+    // don't alwayes require a delegate
     var delegate: LoginViewControllerDelegate?
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    @IBAction func loginButtonPressed(sender: AnyObject) {
-        if usernameField.text == "pasanpr" && passwordField.text == "testing123" {
-            resignFirstResponder()
-            delegate?.didLoginSuccessfully()
-        } else {
+    
+    // from login view
+    @IBAction func loginButtonPressed(sender: AnyObject)
+    {
+        // if the password and username are correct
+        if usernameField.text == "jamie" && passwordField.text == "testing123"
+        {
+            resignFirstResponder()//
+            delegate?.didLoginSuccessfully()// call did login successfully
+        }
+        else
+        {
+            // create alert pop-up
             let alertController = UIAlertController(title: "Error!", message: "The username and password combination failed.", preferredStyle: .Alert)
-            let ok = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
-            })
+            // create a button
+            let ok = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in })
+            // add the button to the alert controller
             alertController.addAction(ok)
+            // present the button
             presentViewController(alertController, animated: true, completion: nil)
         }
     }
-    
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        let length = count(textField.text) - range.length + count(string)
-        if length > 0 {
+    // From UITextFieldDelegate
+    // Need to work out if there is text before submit
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
+    {
+        let length = textField.text!.characters.count - range.length + string.characters.count
+        if length > 0
+        {
             submitButton.enabled = true
-        } else {
+        }
+        else
+        {
             submitButton.enabled = false
         }
         return true
     }
 }
+
+
+
+
+
+
+
