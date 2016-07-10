@@ -9,7 +9,7 @@
 import UIKit
 
 // make ViewController a delegate of UIVIewController and LoginViewControllerDelegate
-// LogininViewControllerDelegate --> Protocol defined in the LginViewController 
+// LogininViewControllerDelegate --> Protocol defined in the LoginViewController
 class ViewController: UIViewController, LoginViewControllerDelegate {
     
     // initally set logged in to false
@@ -58,6 +58,7 @@ class ViewController: UIViewController, LoginViewControllerDelegate {
     // call this function when logged in
     func didLoginSuccessfully()
     {
+        // properery observer on the loggedIn variable
         loggedIn = true // set logged in to true calling other functions
         dismissViewControllerAnimated(true, completion: nil) // get rid of current view
     }
@@ -70,6 +71,7 @@ class ViewController: UIViewController, LoginViewControllerDelegate {
         {
             // set the destination as the Login ViewController 
             let loginVC = segue.destinationViewController as! LoginViewController
+            // the delagte of the loginVC in the LoginViewController as self
             loginVC.delegate = self
         }
     }
